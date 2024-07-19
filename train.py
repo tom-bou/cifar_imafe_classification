@@ -2,6 +2,7 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 from models.modelCNN import CNN
+from models.modelMLP import MLP
 from process import create_dataloader
 import yaml
 
@@ -12,11 +13,17 @@ with open('config.yaml') as file:
     config = yaml.load(file, Loader=yaml.FullLoader)
 
 # Initialize a new W&B run
-wandb.init(project='cifar10-pytorch', entity='tomboustedt')
+wandb.init(project='cifar10-pytorch', 
+           config={
+            "architecture": config['model'],
+            "dataset": "CIFAR-100",
+            "epochs": config['num_epochs'],
+            }
+           , entity='tomboustedt')
 cfg = wandb.config
 
-model = CNN(config['input_size'], config['hidden_sizes'], 
-                            config['output_size'])
+if config['model'] == 'CNN': model = CNN(config['layer_1'], config['layer_2'])
+elif config['model'] == 'MLP': model = MLP(config['input_size'], config['hidden_sizes'], config['output_size'])
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)

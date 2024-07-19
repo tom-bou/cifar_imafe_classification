@@ -1,19 +1,12 @@
+#MLP config
 input_size: 3072
 hidden_sizes: [512, 256, 128]
 output_size: 10
 
-num_epochs: 75
+#CNN Config
+layer_1: 64
+layer_2: 128
 
-classes:
-  [
-    "plane",
-    "car",
-    "bird",
-    "cat",
-    "deer",
-    "dog",
-    "frog",
-    "horse",
-    "ship",
-    "truck",
-  ]
+num_epochs: 50
+
+model: MLP #CNN or MLP

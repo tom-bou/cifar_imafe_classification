@@ -27,3 +27,5 @@ def create_dataloader():
     except Exception as e:
         print("Error in creating dataloaders:", e)
         raise
+    
+classes = [ "plane", "car", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"]
